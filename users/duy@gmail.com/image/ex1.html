@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        .cell{
+            width: 30px;
+            height: 30px;
+            float:left;
+            border: 1px solid black;
+        }
+        #parent{
+            width: 300px;
+            margin: auto;
+        }
+        *{
+            box-sizing: border-box  ;
+        }
+        .alert{
+            clear: both;
+            margin-top: 20px;
+            width: 50%;
+            text-align: center;
+            margin: auto;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+            let bgColor='white';
+            let parent= $("#parent");
+
+            for(i = 1;i<=100;i++){
+                let r=Math.round(Math.random()*255);
+                let g=Math.round(Math.random()*255);
+                let b=Math.round(Math.random()*255);
+                
+                let div=$(`<div class="cell" style="background-color:rgb(${r},${g},${b})"></div>`);
+                parent.append(div);
+            }
+
+            $("#parent div").mouseover(function(){
+                let color = $(this).css('background-color');
+                $("body").css('background-color',color);
+                $("#label").html(color);
+            });
+            
+            $(".cell").click(function(){
+                bgColor=$(this).css('background-color');
+                $(".alert").fadeIn(3000);
+                setTimeout(() => $(".alert").fadeOut(1000),3000);
+            });
+
+            $("#parent div").mouseleave(function(){
+                $("body").css('background-color',bgColor);
+            });
+
+
+        });
+    </script>
+
+</head>
+<body>
+    <div id="label" class="mb-3 mt-3 text-center bg-dark text-light w-25 mx-auto"></div>
+
+    <div id="parent">
+    </div>
+
+    <p style="clear:both"></p>
+    <div class="alert alert-success" style="display: none;">
+        Background color have been changed!
+    </div>
+
+
+</body>
+</html>
